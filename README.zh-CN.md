@@ -31,6 +31,8 @@ iOS 27 风格的 Siri 液态玻璃水滴,移植到 iOS 16.5 越狱设备上:唤�
 
 这是非官方项目,与苹果公司无关,也未获其认可。Siri、iOS、Dynamic Island(灵动岛)是 Apple Inc. 的商标。本 tweak 在越狱设备上 hook 了 SpringBoard 和 Siri 的私有、无文档接口,任何 iOS 更新都可能使其失效,也可能导致 SpringBoard 崩溃或进入安全模式。使用风险自负,软件按「原样」提供(见 [LICENSE](LICENSE))。
 
+**侵权 / 下架声明:** 本项目仅用于学习和研究,不包含任何苹果的代码或资源,也不绕过任何版权保护。如果你认为本项目的任何内容侵犯了你的权利,或违反了相关规则或政策,请[提交 Issue](../../issues) 或通过 GitHub 联系仓库所有者,我们会第一时间处理:相关内容会被删除或修改,并积极配合。
+
 ## 致谢
 
 - [haplollc/SiriGlass](https://github.com/haplollc/SiriGlass)(MIT):水滴的原始实现。
