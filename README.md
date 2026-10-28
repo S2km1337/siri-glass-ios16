@@ -27,6 +27,10 @@ Recorded in the simulator. As the glass widens, the status bar shrinks and yield
 
 ![](screenshots/card-in-glass.png)
 
+## Disclaimer
+
+This is an unofficial project and is not affiliated with or endorsed by Apple. Siri, iOS and Dynamic Island are trademarks of Apple Inc. The tweak hooks private, undocumented SpringBoard and Siri APIs on a jailbroken device, which can break with any iOS update and may cause SpringBoard crashes or safe mode. Use at your own risk; the software is provided as is (see [LICENSE](LICENSE)).
+
 ## Credits
 
 - [haplollc/SiriGlass](https://github.com/haplollc/SiriGlass) (MIT): the original drop.
