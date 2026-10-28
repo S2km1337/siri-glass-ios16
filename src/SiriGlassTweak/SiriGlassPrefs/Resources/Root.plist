@@ -24,6 +24,28 @@
 			<key>label</key>
 			<string>When off, the original Siri orb comes back. Changes apply to the next Siri session.</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Writes a log of what Siri and the glass did to /var/tmp/siriglass-debug.log (events and text lengths only, never what you said). Off by default.</string>
+			<key>label</key>
+			<string>Debug</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.local.siriglasstweak/preferencesChanged</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.local.siriglasstweak</string>
+			<key>key</key>
+			<string>DebugLog</string>
+			<key>label</key>
+			<string>Debug log</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Siri Glass</string>

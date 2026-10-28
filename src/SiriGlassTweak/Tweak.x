@@ -78,6 +78,15 @@ static void SGDebug(NSString *fmt, ...) {
 // The Preferences switch (com.local.siriglasstweak Enabled). Cached briefly:
 // the hooks run often, and CFPreferences is a file read.
 static BOOL enabledCache = YES;
+// Siri.app is sandboxed and may not be allowed to read this tweak's
+// preferences, so SpringBoard mirrors the switch into a file Siri.app can read.
+static NSString *const kEnabledMirror = @"/var/mobile/Library/Logs/CrashReporter/Assistant/CardLogs/siriglass-enabled.plist";
+static BOOL InSiriProcess(void) {
+    static BOOL siri;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{ siri = [NSBundle.mainBundle.bundleIdentifier isEqualToString:@"com.apple.siri"]; });
+    return siri;
+}
 static CFTimeInterval enabledChecked = 0;
 static BOOL TweakEnabled(void) {
     CFTimeInterval now = CACurrentMediaTime();
@@ -86,6 +95,10 @@ static BOOL TweakEnabled(void) {
     CFTypeRef value = CFPreferencesCopyAppValue(CFSTR("Enabled"), CFSTR("com.local.siriglasstweak"));
     if (!value) {
         enabledCache = YES;
+        if (InSiriProcess()) {
+            NSDictionary *mirror = [NSDictionary dictionaryWithContentsOfFile:kEnabledMirror];
+            if ([mirror[@"Enabled"] respondsToSelector:@selector(boolValue)]) enabledCache = [mirror[@"Enabled"] boolValue];
+        }
     } else if (CFGetTypeID(value) == CFBooleanGetTypeID()) {
         enabledCache = CFBooleanGetValue((CFBooleanRef)value);
     } else if (CFGetTypeID(value) == CFNumberGetTypeID()) {
@@ -96,6 +109,13 @@ static BOOL TweakEnabled(void) {
         enabledCache = YES;
     }
     if (value) CFRelease(value);
+    if (!InSiriProcess()) {
+        static int written = -1;
+        if (written != (int)enabledCache) {
+            written = enabledCache;
+            [@{@"Enabled": @(enabledCache)} writeToFile:kEnabledMirror atomically:YES];
+        }
+    }
     return enabledCache;
 }
 static void InvalidateEnabledCache(void) { enabledChecked = 0; }
@@ -1557,7 +1577,10 @@ static void HideWords(UIView *v) {
 
 static void SiriPreferencesChanged(CFNotificationCenterRef center, void *observer, CFStringRef name,
                                    const void *object, CFDictionaryRef userInfo) {
-    InvalidateEnabledCache();
+    // After SpringBoard has had a moment to write the mirror file.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        InvalidateEnabledCache();
+    });
 }
 
 // MARK: Siri.app: its result card, moved into the glass
