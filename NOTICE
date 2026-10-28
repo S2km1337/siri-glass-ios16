@@ -1,0 +1,11 @@
+Siri Glass for iOS 16.5
+
+This project contains code derived from haplollc/SiriGlass (src/SiriGlass),
+released under the MIT License:
+
+  Copyright (c) 2026 Haplo LLC
+
+Its license text is kept in src/SiriGlass/LICENSE.
+
+The refraction shader was inspired by DnV1eX/LiquidGlassKit
+(https://github.com/DnV1eX/LiquidGlassKit); no code was copied from it.
