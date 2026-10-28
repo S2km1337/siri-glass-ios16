@@ -1,0 +1,9 @@
+Package: com.local.siriglasstweak
+Name: Siri Glass
+Version: 0.1.34
+Architecture: iphoneos-arm64e
+Description: Siri Glass: the iOS 27 Siri drop, poured from the Dynamic Island, in place of the Siri orb.
+Maintainer: local
+Author: local
+Section: Tweaks
+Depends: ellekit
